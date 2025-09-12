@@ -1,12 +1,8 @@
 name: Test
 
 on:
-  push:
-    branches:
-      - $default-branch
-  pull_request:
-    branches:
-      - $default-branch
+  workflow_call:
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-24.04
