@@ -6,11 +6,15 @@ on:
       python-versions:
         required: true
         type: string
+      timeout-minutes:
+        type: number
+        required: false
+        default: 5
 
 jobs:
   lint-and-test:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: ${{ inputs.timeout-minutes }}
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}
