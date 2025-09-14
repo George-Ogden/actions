@@ -1,0 +1,45 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Python dependencies
+        run: |
+          pip install uv
+          uv pip install pre-commit --system
+
+      - name: Setup and run pre-commit
+        run: |
+          pre-commit clean
+          pre-commit install
+          pre-commit run -av
+
+      - name: Show pre-commit log
+        if: failure()
+        run: |
+          if [ -f /home/runner/.cache/pre-commit/pre-commit.log ]; then
+            echo "=== pre-commit.log ==="
+            cat /home/runner/.cache/pre-commit/pre-commit.log
+          else
+            echo "pre-commit.log not found."
+          fi
