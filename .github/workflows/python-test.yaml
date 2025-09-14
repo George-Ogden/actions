@@ -12,7 +12,7 @@ on:
         default: 5
 
 jobs:
-  lint-and-test:
+  test:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout-minutes }}
     strategy:
