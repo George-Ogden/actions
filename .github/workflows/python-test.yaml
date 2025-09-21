@@ -33,7 +33,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install uv
-          uv pip install -r requirements-dev.txt . --system
+          uv pip install -r requirements-dev.txt --system
 
       - name: Run Python Tests
         run: |
