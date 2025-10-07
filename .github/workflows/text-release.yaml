@@ -27,7 +27,7 @@ jobs:
       - name: Detect version change
         id: version_check
         run: |
-          if git diff --quiet "${{ github.event.before }}" "${{ github.sha }}" -- version.txt; then
+          if [ -z "${{ github.event.before }}" ] || git diff --quiet "${{ github.event.before }}" "${{ github.sha }}" -- version.txt; then
             echo "version_changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "version_changed=true" >> "$GITHUB_OUTPUT"

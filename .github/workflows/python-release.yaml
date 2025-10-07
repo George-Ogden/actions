@@ -45,7 +45,7 @@ jobs:
       - name: Detect version change
         id: version_check
         run: |
-          if git diff "${{ github.event.before }}" "${{ github.sha }}" -- pyproject.toml | grep -q "^+version"; then
+          if git diff "${{ github.event.before }}" "${{ github.sha }}" -- pyproject.toml 2>&1 | grep -qE "^(\+version|fatal:)"; then
             echo "version_changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "version_changed=false" >> "$GITHUB_OUTPUT"
