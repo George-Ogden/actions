@@ -26,7 +26,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install uv
-          uv pip install pre-commit --system
+          uv tool install pre-commit --with pre-commit-uv
 
       - name: Setup and run pre-commit
         run: |
