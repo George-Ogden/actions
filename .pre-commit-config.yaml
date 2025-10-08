@@ -1,4 +1,5 @@
-default_stages: ["pre-commit", "commit-msg", "pre-push"]
+default_stages: ["pre-commit"]
+default_install_hook_types: ["pre-commit", "commit-msg"]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -14,6 +15,8 @@ repos:
       - id: prettier
 
   - repo: https://github.com/George-Ogden/pre-commit-hooks
-    rev: v1.2.3
+    rev: v1.4.0
     hooks:
       - id: check-merge-conflict
+      - id: todo-check
+      - id: spell-check-commit-msgs
