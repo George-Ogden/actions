@@ -51,6 +51,7 @@ jobs:
       - name: Create Git tag
         id: create_tag
         run: |
+          git fetch --tags
           if git tag "v${{ steps.read_version.outputs.version }}"; then
             echo "tag_created=true" >> "$GITHUB_OUTPUT"
             git push origin "v${{ steps.read_version.outputs.version }}"
