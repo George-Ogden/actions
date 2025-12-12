@@ -45,7 +45,7 @@ jobs:
       - name: Read version
         id: read_version
         run: |
-          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])" 2> /dev/null || cat version.txt)
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Create Git tag
