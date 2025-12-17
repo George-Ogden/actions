@@ -10,6 +10,9 @@ on:
       validation-code:
         required: false
         type: string
+      validation-script:
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -33,9 +36,13 @@ jobs:
         run: |
           pip install .
 
-      - name: Validate Install
+      - name: Validate Install (Python Code)
         run: |
           python -Ic "${{ inputs.validation-code }}"
+
+      - name: Validate Install (Script)
+        run: |
+          ${{ inputs.validation-script }}
 
       - name: Set up Git identity
         run: |
