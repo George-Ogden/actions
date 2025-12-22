@@ -1,0 +1,23 @@
+name: Check for version in README.md
+
+on:
+  workflow_call:
+    inputs:
+      prefix:
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  readme-check:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Check version in README
+        run: |
+          grep -Fz -- "${{ inputs.prefix }}$(cat version.txt)" README.md
