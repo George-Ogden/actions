@@ -25,13 +25,20 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install uv
+          pip install uv pyyaml
           uv tool install pre-commit --with pre-commit-uv
+          uv pip install pyyaml --system
 
       - name: Setup and run pre-commit
         run: |
-          pre-commit clean
-          pre-commit install
+          SKIP=$(python - <<'EOF'
+          import yaml
+          with open(".pre-commit-config.yaml") as f:
+              config = yaml.safe_load(f)
+          print(",".join(config.get("ci", {}).get("skip", [])))
+          EOF
+          )
+          export SKIP
           pre-commit run -av
 
       - name: Show pre-commit log
