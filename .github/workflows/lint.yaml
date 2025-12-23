@@ -30,7 +30,6 @@ jobs:
 
       - name: Setup and run pre-commit
         run: |
-          pre-commit clean
           pre-commit install
           pre-commit run -av
 
