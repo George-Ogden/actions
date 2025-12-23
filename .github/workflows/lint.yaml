@@ -31,7 +31,14 @@ jobs:
 
       - name: Setup and run pre-commit
         run: |
-          export SKIP=$(python -c 'import yaml; f = open(".pre-commit-config.yaml"); print(",".join(yaml.safe_load(f).get("ci", {}).get("skip",[]))); f.close()')
+          SKIP=$(python - <<'EOF'
+          import yaml
+          with open(".pre-commit-config.yaml") as f:
+              config = yaml.safe_load(f)
+          print(",".join(config.get("ci", {}).get("skip", [])))
+          EOF
+          )
+          export SKIP
           pre-commit run -av
 
       - name: Show pre-commit log
