@@ -26,10 +26,10 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install uv pyyaml
-          uv tool install pre-commit --with pre-commit-uv
+          uv tool install prek
           uv pip install pyyaml --system
 
-      - name: Setup and run pre-commit
+      - name: Setup and run prek
         run: |
           SKIP=$(python - <<'EOF'
           import yaml
@@ -39,9 +39,9 @@ jobs:
           EOF
           )
           export SKIP
-          pre-commit run -av
+          prek run -av
 
-      - name: Show pre-commit log
+      - name: Show prek log
         if: failure()
         run: |
           if [ -f /home/runner/.cache/pre-commit/pre-commit.log ]; then
