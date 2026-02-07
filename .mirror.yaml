@@ -1,0 +1,8 @@
+repos:
+  - source: https://github.com/George-Ogden/mirror-config
+    files:
+      - .mirror.yaml: text.mirror.yaml
+      - .gitignore: .gitignore
+      - .pre-commit-config.yaml: text.pre-commit-config.yaml
+      - LICENSE
+      - version.txt
