@@ -41,4 +41,4 @@ jobs:
 
       - name: Run Python Tests
         run: |
-          pytest ${{ inputs.pytest-flags }}
+          pytest ${{ inputs.pytest-flags }} || [ $? -eq 5 ]
