@@ -1,4 +1,4 @@
-name: Test
+name: Run Python Tests
 
 on:
   workflow_call:
@@ -16,7 +16,7 @@ on:
         default: -vv
 
 jobs:
-  test:
+  run-pytest:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout-minutes }}
     strategy:
