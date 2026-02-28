@@ -1,5 +1,5 @@
 default_stages: [pre-commit]
-default_install_hook_types: [pre-commit, commit-msg]
+default_install_hook_types: [pre-commit, prepare-commit-msg, commit-msg]
 
 ci:
   skip:
@@ -13,33 +13,36 @@ repos:
       - id: mirror-check
         fail_fast: true
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks/
     rev: v6.0.0
     hooks:
       - id: no-commit-to-branch
+        fail_fast: true
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: trailing-whitespace
 
-  - repo: https://github.com/koalaman/shellcheck-precommit
+  - repo: https://github.com/koalaman/shellcheck-precommit/
     rev: v0.11.0
     hooks:
       - id: shellcheck
         args: [--severity=warning]
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier/
     rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
 
-  - repo: https://github.com/rhysd/actionlint
+  - repo: https://github.com/rhysd/actionlint/
     rev: v1.7.11
     hooks:
       - id: actionlint
 
-  - repo: https://github.com/George-Ogden/pre-commit-hooks
-    rev: v2.2.0
+  - repo: https://github.com/George-Ogden/pre-commit-hooks/
+    rev: v2.4.0
     hooks:
       - id: check-merge-conflict
       - id: todo-check
       - id: spell-check-commit-msgs
+      - id: mirror-auto-msg
+      - id: version-txt-auto-msg
