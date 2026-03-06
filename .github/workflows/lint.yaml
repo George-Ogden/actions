@@ -29,9 +29,11 @@ jobs:
           path: ~/.cache/
           key: prek
 
+      - name: Install latest version of uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Install Python dependencies
         run: |
-          pip install uv pyyaml
           uv tool install prek
           uv pip install pyyaml --system
 
