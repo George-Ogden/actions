@@ -34,8 +34,8 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv tool install prek
-          uv pip install pyyaml --system
+          uv tool install prek --cache-dir ~/.cache/uv
+          uv pip install pyyaml --system --cache-dir ~/.cache/uv --upgrade
 
       - name: Setup and run prek
         run: |
