@@ -45,7 +45,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv pip install -r requirements-dev.txt --system
+          uv pip install -r requirements-dev.txt --system --cache-dir ~/.cache/uv
 
       - name: Run Python Tests
         run: |
