@@ -23,11 +23,19 @@ jobs:
         with:
           python-version: "3.13"
 
+      - name: Load entire cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/
+          key: prek
+
+      - name: Install latest version of uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Install Python dependencies
         run: |
-          pip install uv pyyaml
-          uv tool install prek
-          uv pip install pyyaml --system
+          uv tool install prek --cache-dir ~/.cache/uv
+          uv pip install pyyaml --system --cache-dir ~/.cache/uv --upgrade
 
       - name: Setup and run prek
         run: |
