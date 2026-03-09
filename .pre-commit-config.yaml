@@ -8,7 +8,7 @@ ci:
 
 repos:
   - repo: https://github.com/George-Ogden/mirror-rorrim/
-    rev: v0.4.7
+    rev: v0.4.8
     hooks:
       - id: mirror-check
         fail_fast: true
@@ -39,10 +39,14 @@ repos:
       - id: actionlint
 
   - repo: https://github.com/George-Ogden/pre-commit-hooks/
-    rev: v2.4.0
+    rev: v3.0.1
     hooks:
       - id: check-merge-conflict
       - id: todo-check
+        exclude: (?x)^(
+          .pre-commit-config.yaml|
+          .gitignore
+          )$
       - id: spell-check-commit-msgs
       - id: mirror-auto-msg
       - id: version-txt-auto-msg
