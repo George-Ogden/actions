@@ -1,0 +1,33 @@
+name: Lint and Format Rust Files with Cargo and Clippy
+
+on:
+  workflow_call:
+
+jobs:
+  cargo-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: clippy, rustfmt
+          toolchain: stable
+
+      - name: Format with Cargo
+        run: |
+          cargo fmt --check
+
+      - name: Check with Cargo
+        run: |
+          cargo check
+
+      - name: Lint with Clippy
+        run: |
+          cargo clippy -- -D warnings -W clippy::pedantic
+          cargo clippy --all-targets -- -D warnings
