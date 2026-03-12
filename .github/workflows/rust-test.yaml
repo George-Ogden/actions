@@ -2,6 +2,14 @@ name: Run Rust Tests
 
 on:
   workflow_call:
+    inputs:
+      rust-version:
+        required: true
+        type: string
+      timeout-minutes:
+        type: number
+        required: false
+        default: 5
 
 jobs:
   run-cargo-tests:
@@ -17,7 +25,7 @@ jobs:
       - name: Set up Rust
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          toolchain: stable
+          toolchain: ${{ inputs.rust-version }}
 
       - name: Build with Cargo
         run: |

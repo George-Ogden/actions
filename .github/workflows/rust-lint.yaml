@@ -2,6 +2,10 @@ name: Lint and Format Rust Files with Cargo and Clippy
 
 on:
   workflow_call:
+    inputs:
+      rust-version:
+        required: true
+        type: string
 
 jobs:
   cargo-lint:
@@ -17,7 +21,7 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: clippy, rustfmt
-          toolchain: stable
+          toolchain: ${{ inputs.rust-version }}
 
       - name: Format with Cargo
         run: |
