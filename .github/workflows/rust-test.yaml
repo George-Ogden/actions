@@ -1,0 +1,36 @@
+name: Run Rust Tests
+
+on:
+  workflow_call:
+    inputs:
+      rust-version:
+        required: true
+        type: string
+      timeout-minutes:
+        type: number
+        required: false
+        default: 5
+
+jobs:
+  run-cargo-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Set up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: ${{ inputs.rust-version }}
+
+      - name: Build with Cargo
+        run: |
+          cargo build
+
+      - name: Run Tests with Cargo
+        run: |
+          cargo test --workspace --all-targets
