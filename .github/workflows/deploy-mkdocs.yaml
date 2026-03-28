@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install uv
-          uv pip install -r requirements-dev.txt --system
+          uv pip install -r requirements-docs.txt --system
 
       - name: Deploy to GitHub
         run: mkdocs gh-deploy --force
