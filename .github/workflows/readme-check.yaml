@@ -9,12 +9,7 @@ on:
 
 jobs:
   check-readme:
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Check version in README
-        run: |
-          grep -Fz -- "${{ inputs.prefix }}$(cat version.txt)" README.md
+    uses: ./.github/workflows/version-check.yaml
+    with:
+      filename: README.md
+      prefix: ${{ inputs.prefix }}
