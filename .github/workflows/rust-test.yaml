@@ -34,4 +34,4 @@ jobs:
 
       - name: Run Tests with Cargo
         run: |
-          cargo test --workspace --all-targets
+          cargo test --workspace --all-targets --no-fail-fast
