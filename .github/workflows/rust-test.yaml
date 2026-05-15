@@ -30,7 +30,7 @@ jobs:
 
       - name: Build with Cargo
         run: |
-          cargo build
+          cargo build --workspace --all-targets
 
       - name: Run Tests with Cargo
         run: |
