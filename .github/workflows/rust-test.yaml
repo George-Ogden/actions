@@ -10,6 +10,10 @@ on:
         type: number
         required: false
         default: 5
+      test-flags:
+        type: string
+        required: false
+        default: ""
 
 jobs:
   run-cargo-tests:
@@ -34,4 +38,4 @@ jobs:
 
       - name: Run Tests with Cargo
         run: |
-          cargo test --workspace --all-targets --no-fail-fast --no-tests pass
+          cargo test --workspace --all-targets --no-fail-fast --no-tests pass ${{ inputs.test-flags }}
