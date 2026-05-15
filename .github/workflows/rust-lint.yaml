@@ -30,8 +30,8 @@ jobs:
 
       - name: Check with Cargo
         run: |
-          cargo check
+          cargo check --workspace --all-targets
 
       - name: Lint with Clippy
         run: |
-          cargo clippy --all-targets --workspace
+          cargo clippy --workspace --all-targets
