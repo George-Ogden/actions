@@ -38,4 +38,4 @@ jobs:
 
       - name: Run Tests with Cargo
         run: |
-          cargo test --workspace --all-targets --no-fail-fast --no-tests pass ${{ inputs.test-flags }}
+          cargo test --workspace --all-targets --no-fail-fast ${{ inputs.test-flags }}
