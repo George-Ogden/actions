@@ -10,6 +10,10 @@ on:
         type: number
         required: false
         default: 5
+      hack-flags:
+        type: string
+        required: false
+        default: ""
       test-flags:
         type: string
         required: false
@@ -32,10 +36,12 @@ jobs:
         with:
           toolchain: ${{ inputs.rust-version }}
 
+      - uses: taiki-e/install-action@cargo-hack
+
       - name: Build with Cargo
         run: |
-          cargo build --workspace --all-targets
+          cargo hack build --workspace --all-targets ${{ inputs.hack-flags }}
 
       - name: Run Tests with Cargo
         run: |
-          cargo test --workspace --all-targets --no-fail-fast ${{ inputs.test-flags }}
+          cargo hack test --workspace --all-targets --no-fail-fast ${{ inputs.hack-flags }} ${{ inputs.test-flags }}
