@@ -6,6 +6,10 @@ on:
       rust-version:
         required: true
         type: string
+      hack-flags:
+        type: string
+        required: false
+        default: ""
 
 jobs:
   cargo-lint:
@@ -24,14 +28,16 @@ jobs:
           components: clippy, rustfmt
           toolchain: ${{ inputs.rust-version }}
 
+      - uses: taiki-e/install-action@cargo-hack
+
       - name: Format with Cargo
         run: |
           cargo fmt --check
 
       - name: Check with Cargo
         run: |
-          cargo check --workspace --all-targets
+          cargo hack check --workspace --all-targets ${{ inputs.hack-flags }}
 
       - name: Lint with Clippy
         run: |
-          cargo clippy --workspace --all-targets
+          cargo hack clippy --workspace --all-targets ${{ inputs.hack-flags }}
