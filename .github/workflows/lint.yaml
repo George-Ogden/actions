@@ -3,10 +3,10 @@ name: Run Prek on All Files
 on:
   push:
     branches:
-      - master
+      - m
   pull_request:
     branches:
-      - master
+      - m
   workflow_call:
 
 jobs:

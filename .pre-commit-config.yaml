@@ -9,7 +9,7 @@ ci:
 
 repos:
   - repo: https://github.com/George-Ogden/mirror-rorrim/
-    rev: v0.4.9
+    rev: v0.4.10
     hooks:
       - id: mirror-check
         fail_fast: true
@@ -30,14 +30,20 @@ repos:
         stages: [pre-commit]
         args: [--assume-in-merge]
 
+  - repo: https://github.com/scop/pre-commit-shfmt/
+    rev: v3.14.1-1
+    hooks:
+      - id: shfmt
+        stages: [pre-commit]
+
   - repo: https://github.com/koalaman/shellcheck-precommit/
     rev: v0.11.0
     hooks:
       - id: shellcheck
         args: [--severity=warning]
 
-  - repo: https://github.com/pre-commit/mirrors-prettier/
-    rev: v4.0.0-alpha.8
+  - repo: https://github.com/rbubley/mirrors-prettier/
+    rev: v3.9.7
     hooks:
       - id: prettier
 
@@ -46,13 +52,25 @@ repos:
     hooks:
       - id: actionlint
 
+  - repo: https://github.com/codespell-project/codespell/
+    rev: v2.4.3
+    hooks:
+      - id: codespell
+        exclude: \.lock$
+        args:
+          - -f
+          - --regex
+          # Copied from https://github.com/codespell-project/codespell/issues/2730#issuecomment-1657006554.
+          - |
+            (?<![a-zà-öø-ÿ])[a-zà-öø-ÿ'`]+|[A-ZÀ-ÖØ-Þ][a-zà-öø-ÿ'`]*|[a-zà-öø-ÿ]+'[a-zà-öø-ÿ]*|[a-zà-öø-ÿ]+(?=[_-])|[a-zà-öø-ÿ]+(?=[A-ZÀ-ÖØ-Þ])|\d+
+
   - repo: https://github.com/George-Ogden/pre-commit-hooks/
     rev: v4.1.1
     hooks:
       - id: todo-check
         exclude: (?x)^(
-          .pre-commit-config.yaml|
-          .gitignore
+          \.pre-commit-config\.yaml|
+          \.gitignore
           )$
       - id: spell-check-commit-msgs
       - id: mirror-auto-msg
