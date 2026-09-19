@@ -49,3 +49,8 @@ jobs:
           )
           export SKIP
           prek run -av
+
+      - name: Print Diff on Failure
+        if: failure()
+        run: |
+          git diff
