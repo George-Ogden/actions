@@ -6,3 +6,4 @@ repos:
       - .pre-commit-config.yaml: text.pre-commit-config.yaml
       - LICENSE
       - version.txt
+      - .semgrep-rules/pre-commit.yaml
