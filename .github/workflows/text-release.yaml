@@ -8,9 +8,10 @@ on:
 
 permissions:
   contents: write
+  pull-requests: read
 
 jobs:
-  release:
+  tag-and-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,30 +43,27 @@ jobs:
             echo "tag_created=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Generate changelog
-        id: changelog
-        if: steps.create_tag.outputs.tag_created == 'true'
-        run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          if [ -n "$LAST_TAG" ]; then
-            LOG=$(git log "$LAST_TAG"..HEAD --pretty=format:"- %s")
-          else
-            LOG=$(git log HEAD --pretty=format:"- %s")
-          fi
-
-          {
-            echo "log<<EOF"
-            echo "$LOG"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v6
+        with:
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}",
+              "pr_template": "**#{{TITLE}}** (##{{NUMBER}})\n#{{BODY}}\n\n",
+               "categories": [
+                { "title": "## Pull Requests", "labels": [] }
+              ]
+            }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub release
         if: steps.create_tag.outputs.tag_created == 'true'
         uses: actions/create-release@v1
         with:
           tag_name: v${{ steps.read_version.outputs.version }}
-          release_name: Release v${{ steps.read_version.outputs.version }}
-          body: ${{ steps.changelog.outputs.log }}
+          body: ${{ steps.build_changelog.outputs.changelog }}
           draft: false
           prerelease: false
         env:

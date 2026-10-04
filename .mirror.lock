@@ -1,7 +1,8 @@
 # DANGER: EDIT AT YOUR OWN RISK. Track this file in version control so that others can sync files correctly.
-- commit: 3c58fb6e01c61e0e5a43f887cf9e32be42ed3075
+- commit: 415e7d8b6616b12a26f0f91c0504b61b4426fea6
   files:
   - .gitignore
+  - .semgrep-rules/pre-commit.yaml
   - LICENSE
   - text.mirror.yaml
   - text.pre-commit-config.yaml
