@@ -64,9 +64,8 @@ jobs:
         uses: actions/create-release@v1
         with:
           tag_name: v${{ steps.read_version.outputs.version }}
-          release_name: Release v${{ steps.read_version.outputs.version }}
-          body: ${{ steps.changelog.outputs.log }}
           draft: false
           prerelease: false
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
