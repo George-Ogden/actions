@@ -11,7 +11,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  release:
+  tag-and-release:
     runs-on: ubuntu-latest
 
     steps:
