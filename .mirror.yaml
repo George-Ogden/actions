@@ -4,6 +4,8 @@ repos:
       - .mirror.yaml: text.mirror.yaml
       - .gitignore: .gitignore
       - .pre-commit-config.yaml: text.pre-commit-config.yaml
+
       - LICENSE
       - version.txt
+      - tombi.toml
       - .semgrep-rules/pre-commit.yaml
