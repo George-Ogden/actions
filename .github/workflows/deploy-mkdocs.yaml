@@ -30,15 +30,9 @@ jobs:
       - name: Install latest version of uv
         uses: astral-sh/setup-uv@v7
 
-      - name: Load uv cache
-        uses: actions/cache@v5
-        with:
-          path: ~/.cache/uv/
-          key: ${{ runner.os }}-uv-python-${{ inputs.python-version }}-${{ env.cache-name }}-${{ hashFiles('uv.toml', 'pyproject.toml', 'uv.lock') }}
-
       - name: Install dependencies
         run: |
-          uv sync --group docs --no-dev --cache-dir ~/.cache/uv
+          uv sync --group docs --no-dev
 
       - name: Deploy to GitHub
         run: uv run --no-sync mkdocs gh-deploy --force
