@@ -42,11 +42,11 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ~/.cache/uv/
-          key: ${{ runner.os }}-uv-python-${{ matrix.python-version }}-${{ env.cache-name }}-${{ hashFiles('uv.toml', 'requirements*.txt') }}
+          key: ${{ runner.os }}-uv-python-${{ matrix.python-version }}-${{ env.cache-name }}-${{ hashFiles('uv.toml', 'pyproject.toml', 'uv.lock') }}
 
       - name: Install Python dependencies
         run: |
-          uv pip install -r requirements-dev.txt --system --cache-dir ~/.cache/uv --upgrade
+          uv sync --group test --resolution lowest-direct
 
       - name: Run Python Tests
         run: |
