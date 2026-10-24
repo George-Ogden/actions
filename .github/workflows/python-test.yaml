@@ -46,8 +46,9 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv sync --group test --resolution lowest-direct
+          uv sync --group test --no-dev
+          uv pip install . --resolution lowest-direct --reinstall
 
       - name: Run Python Tests
         run: |
-          pytest ${{ inputs.pytest-flags }} || [ $? -eq 5 ]
+          uv run --no-sync pytest ${{ inputs.pytest-flags }} || [ $? -eq 5 ]
