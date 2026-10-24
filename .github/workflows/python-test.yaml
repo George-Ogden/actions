@@ -46,8 +46,8 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv sync --group test --no-dev
-          uv pip install . --resolution lowest-direct --reinstall
+          uv sync --group test --no-dev --cache-dir ~/.cache/uv
+          uv pip install . --resolution lowest-direct --reinstall --cache-dir ~/.cache/uv
 
       - name: Run Python Tests
         run: |
