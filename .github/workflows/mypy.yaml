@@ -1,0 +1,46 @@
+name: Run MyPy
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        default: "3.14"
+        required: false
+        type: string
+      timeout-minutes:
+        type: number
+        required: false
+        default: 10
+      mypy-flags:
+        type: string
+        required: false
+        default: "."
+
+jobs:
+  run-mypy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install latest version of uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Install Python dependencies
+        run: |
+          uv sync --group types --no-dev
+          uv tool install mypy
+
+      - name: Run MyPy
+        run: |
+          uv run --no-sync mypy ${{ inputs.mypy-flags }}
