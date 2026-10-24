@@ -27,10 +27,12 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
 
+      - name: Install latest version of uv
+        uses: astral-sh/setup-uv@v7
+
       - name: Install dependencies
         run: |
-          pip install uv
-          uv pip install -r requirements-docs.txt --system
+          uv sync --group docs --no-dev
 
       - name: Deploy to GitHub
-        run: mkdocs gh-deploy --force
+        run: uv run --no-sync mkdocs gh-deploy --force
