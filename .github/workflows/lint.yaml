@@ -35,12 +35,12 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv tool install prek --cache-dir ~/.cache/uv
-          uv pip install pyyaml --system --cache-dir ~/.cache/uv --upgrade
+          uv sync --group lint --no-dev
+          uv pip install pyyaml --upgrade
 
       - name: Setup and run prek
         run: |
-          SKIP=$(python - <<'EOF'
+          SKIP=$(uv run --no-sync python - <<'EOF'
           import yaml
           with open(".pre-commit-config.yaml") as f:
               config = yaml.safe_load(f)
@@ -48,7 +48,7 @@ jobs:
           EOF
           )
           export SKIP
-          prek run -av
+          uv run --no-sync prek run -av
 
       - name: Print Diff on Failure
         if: failure()
