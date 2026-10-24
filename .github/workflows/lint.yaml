@@ -40,7 +40,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          uv sync --group lint --no-dev || uv venv
+          uv sync --group lint --no-dev || uv venv || true
           uv tool install prek
           uv pip install pyyaml --upgrade
 
