@@ -28,19 +28,32 @@ jobs:
           lfs: true
           submodules: recursive
 
+      - name: Check for Python files
+        id: detect-files
+        run: |
+          if [ -z "$(git ls-files '*.py' '*.pyi')" ]; then
+            echo 'no_files=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'no_files=false' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Python
+        if: steps.detect-files.outputs.no_files == 'false'
         uses: actions/setup-python@v5
         with:
           python-version: ${{ inputs.python-version }}
 
       - name: Install latest version of uv
+        if: steps.detect-files.outputs.no_files == 'false'
         uses: astral-sh/setup-uv@v7
 
       - name: Install Python dependencies
+        if: steps.detect-files.outputs.no_files == 'false'
         run: |
           uv sync --group types --no-dev
           uv tool install mypy
 
       - name: Run MyPy
+        if: steps.detect-files.outputs.no_files == 'false'
         run: |
           uv run --no-sync mypy ${{ inputs.mypy-flags }}
